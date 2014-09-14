@@ -1,0 +1,7 @@
+_build/
+deps/
+out/
+erl_crash.dump
+*.ez
+*.beam
+*.swp
