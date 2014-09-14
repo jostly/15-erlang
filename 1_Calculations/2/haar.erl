@@ -18,8 +18,8 @@ encode_once([A, B | T], {Averages, Differences}) ->
 	encode_once(T, {[Average | Averages], [Difference | Differences]}).
 
 encode_test_() ->
-	[?_assert(encode([8, 5]) =:= [6.5, 1.5]),
-	 ?_assert(encode([8, 5, 7, 3]) =:= [5.75, 1.75, 0.75, -0.25])
+	[?_assertEqual([6.5, 1.5], encode([8, 5])),
+	 ?_assertEqual([5.75, 1.75, 0.75, -0.25], encode([8, 5, 7, 3]))
 	].
 
 
@@ -38,9 +38,9 @@ decode_once({[], []}, Acc) -> lists:reverse(Acc).
 
 
 decode_test_() ->
-	[?_assert(decode([6.5, 1.5]) =:= [8.0, 5.0]),
-	?_assert(decode([5.75, 1.75, 0.75, -0.25]) =:= [8.0, 5.0, 7.0, 3.0])]
+	[?_assertEqual([8.0, 5.0], decode([6.5, 1.5])),
+	?_assertEqual([8.0, 5.0, 7.0, 3.0], decode([5.75, 1.75, 0.75, -0.25]))]
 	.
 
-chain_test() ->
-	?_assert(decode(encode([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0])) =:= [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]).
+chain_test_() ->
+	[?_assertEqual([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0], decode(encode([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0])))].
